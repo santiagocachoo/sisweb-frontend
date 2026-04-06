@@ -35,7 +35,6 @@ const SortIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-
 const ProductPage: React.FC<Props> = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -101,22 +100,63 @@ const ProductPage: React.FC<Props> = () => {
 
         {/* Results */}
         <div className="px-6 py-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
-            Results
-          </h2>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
+              Results
+            </h2>
+
+            <button className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
+              NEW PRODUCT
+            </button>
+          </div>
 
           <div className="mt-4 overflow-x-auto rounded-2xl border border-gray-200">
-            <table className="min-w-full divide-y divide-gray-200 bg-white">
+            <table id="filter-table" className="min-w-full divide-y divide-gray-200 bg-white">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className={tableHeadingClassName}>#</th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      #
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
                   <th className={tableHeadingClassName}>Image</th>
-                  <th className={tableHeadingClassName}>Title</th>
-                  <th className={tableHeadingClassName}>Description</th>
-                  <th className={tableHeadingClassName}>Price</th>
-                  <th className={tableHeadingClassName}>Disc.%</th>
-                  <th className={tableHeadingClassName}>Rating</th>
-                  <th className={tableHeadingClassName}>Stock</th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Title
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Description
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Price
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Disc.%
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Rating
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
+                  <th className={tableHeadingClassName}>
+                    <span className="flex items-center gap-1">
+                      Stock
+                      <SortIcon className="h-4 w-4 text-gray-400" />
+                    </span>
+                  </th>
                   <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-500">Modify</th>
                   <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-500">Delete</th>
                 </tr>
@@ -205,4 +245,3 @@ const ProductPage: React.FC<Props> = () => {
 };
 
 export default ProductPage;
-
