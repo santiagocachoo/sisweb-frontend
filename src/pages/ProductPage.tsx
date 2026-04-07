@@ -120,10 +120,7 @@ const ProductPage: React.FC<Props> = () => {
               </select>
             </div>
 
-            <div className="flex items-end">
-              <button className="w-full rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
-                Filtrar
-              </button>
+            <div>
             </div>
 
           </div>
