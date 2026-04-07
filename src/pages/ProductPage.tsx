@@ -6,8 +6,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState, useEffect, useMemo } from "react";
 import type { Product, Category } from "my-types";
-import { getAllProducts } from "../api/productapi";
+import { getAllProducts, deleteProduct } from "../api/productapi";
 import { getAllCategories } from "../api/categoryapi";
+import DeleteConfirmModal from "../components/DeleteConfirmModal";
 
 interface Props {}
 
@@ -41,6 +42,7 @@ const ProductPage: React.FC<Props> = () => {
   const [titleQuery, setTitleQuery] = useState("");
   const [descriptionQuery, setDescriptionQuery] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
   useEffect(() => {
     getAllProducts().then((products:Product[]) => setProducts(products));
@@ -57,11 +59,19 @@ const ProductPage: React.FC<Props> = () => {
 
       const matchesDescription = _description.length === 0 || p.description.toLowerCase().includes(_description);
 
-      const matchesCategory = categoryId === null || p.category.id === categoryId;
+      const matchesCategory = categoryId === null || p.categoryId === categoryId;
 
       return matchesTitle && matchesDescription && matchesCategory;
     });
   }, [descriptionQuery, titleQuery, categoryId, products]);
+
+  const handleDelete = () => {
+  if (!productToDelete) return;
+    deleteProduct(productToDelete.id).then(() => {
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+    });
+  };
 
 
   return (
@@ -162,7 +172,7 @@ const ProductPage: React.FC<Props> = () => {
                     </span>
                   </th>
                   <th className={tableHeadingClassName}>
-                    <span className="fles items-center gap-1">
+                    <span className="flex items-center gap-1">
                       Category
                       <SortIcon className="h-4 w-4 text-gray-400" />
                     </span>
@@ -263,7 +273,7 @@ const ProductPage: React.FC<Props> = () => {
                       <td className="px-3 py-3 text-center">
                         <button
                           onClick={() =>
-                            window.confirm(`Delete the product "${product.title}"?`)
+                            setProductToDelete(product)
                           }
                           className="text-red-600 hover:text-red-800"
                         >
@@ -278,6 +288,11 @@ const ProductPage: React.FC<Props> = () => {
           </div>
         </div>
       </section>
+      <DeleteConfirmModal
+        product={productToDelete}
+        onClose={() => setProductToDelete(null)}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };
