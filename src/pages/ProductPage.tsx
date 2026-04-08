@@ -9,6 +9,7 @@ import type { Product, Category } from "my-types";
 import { getAllProducts, deleteProduct } from "../api/productapi";
 import { getAllCategories } from "../api/categoryapi";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import ProductDetailModal from "../components/ProductDetailModal";
 
 interface Props {}
 
@@ -43,6 +44,7 @@ const ProductPage: React.FC<Props> = () => {
   const [descriptionQuery, setDescriptionQuery] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [productToView, setProductToView] = useState<Product | null>(null);
 
   useEffect(() => {
     getAllProducts().then((products:Product[]) => setProducts(products));
@@ -228,9 +230,13 @@ const ProductPage: React.FC<Props> = () => {
                       </td>
 
                       <td className="px-3 py-3">
-                        <button className="text-blue-600 hover:underline text-sm font-medium">
+                        <button
+                          onClick={() => setProductToView(product)}
+                          className="text-blue-600 hover:underline text-sm font-medium"
+                        >
                           {product.title}
                         </button>
+
                       </td>
 
                       <td className="px-3 py-3 text-sm text-gray-600">
@@ -260,9 +266,7 @@ const ProductPage: React.FC<Props> = () => {
                       {/* Edit */}
                       <td className="px-3 py-3 text-center">
                         <button
-                          onClick={() =>
-                            window.confirm(`Save the changes for "${product.title}"?`)
-                          }
+                          onClick={() => setProductToView(product)}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           <PencilIcon className="h-4 w-4" />
@@ -293,6 +297,13 @@ const ProductPage: React.FC<Props> = () => {
         onClose={() => setProductToDelete(null)}
         onConfirm={handleDelete}
       />
+
+      <ProductDetailModal
+        product={productToView}
+        onClose={() => setProductToView(null)}
+        onEdit={() => {}}
+      />
+
     </div>
   );
 };
