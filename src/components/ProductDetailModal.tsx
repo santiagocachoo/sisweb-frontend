@@ -34,7 +34,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, onClose, onEdit }) => {
       <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <DialogPanel className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-xl">
+        <DialogPanel className="w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-xl flex flex-col">
           <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
             <DialogTitle className="text-2xl font-semibold tracking-tight text-gray-900">
               Product Details
@@ -42,17 +42,16 @@ const ProductDetailModal: React.FC<Props> = ({ product, onClose, onEdit }) => {
 
             <button
               onClick={onClose}
-              className="rounded-full p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
-              aria-label="Close product details"
+              className="text-gray-400 hover:text-gray-600"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
 
           <div className="space-y-6 px-6 py-6">
-            <div className="flex flex-col gap-5 sm:flex-row">
-              <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50">
-                <PhotoIcon className="h-12 w-12 text-gray-400" />
+            <div className="flex items-center gap-4">
+              <div className="shrink-0 flex items-center justify-center h-16 w-16 rounded-lg bg-gray-100 border border-gray-200">
+                <PhotoIcon className="h-8 w-8 text-gray-400" />
               </div>
 
               <div className="flex-1">
@@ -62,7 +61,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, onClose, onEdit }) => {
                       Title
                     </p>
                     <h2 className="mt-2 text-2xl font-semibold text-gray-900">
-                      {product.title}
+                      {product?.title}
                     </h2>
                   </div>
 
@@ -82,11 +81,11 @@ const ProductDetailModal: React.FC<Props> = ({ product, onClose, onEdit }) => {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-gray-100 pt-4">
               <Field label="Price" value={`$${product.price.toFixed(2)}`} />
               <Field label="Stock" value={product.stock} />
               <Field label="Discount" value={`${product.discountPercentage.toFixed(1)}%`} />
-              <Field label="Rating" value={product.rating} />
+              <Field label="Rating" value={`${product.rating} / 5`} />
               <Field label="Product ID" value={product.id} />
               <Field label="Category ID" value={product.categoryId} />
             </div>
