@@ -10,6 +10,7 @@ import { getAllProducts, deleteProduct } from "../api/productapi";
 import { getAllCategories } from "../api/categoryapi";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import ProductDetailModal from "../components/ProductDetailModal";
+import { useNavigate } from "react-router-dom";  // ← línea nueva
 
 interface Props {}
 
@@ -38,6 +39,7 @@ const SortIcon = ({ className }: { className?: string }) => (
 );
 
 const ProductPage: React.FC<Props> = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [titleQuery, setTitleQuery] = useState("");
@@ -145,7 +147,10 @@ const ProductPage: React.FC<Props> = () => {
               Results
             </h2>
 
-            <button className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
+            <button
+              onClick={() => navigate("/product/new")}
+              className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800"
+            >
               NEW PRODUCT
             </button>
           </div>
