@@ -5,6 +5,7 @@ import ErrorPage from '../pages/ErrorPage';
 import HomePage from '../pages/HomePage';
 import NewProductPage from '../pages/NewProductPage';
 import DashboardPage from '../pages/DashboardPage';
+import ProductFormPage from '../pages/ProductFormPage';
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: 'product', element: <ProductPage /> },
             { path: 'product/new', element: <NewProductPage /> },
+            { path: 'product/:id/edit', element: <ProductFormPage />},
             { path: 'dashboard',         element: <DashboardPage />},
         ]
     },

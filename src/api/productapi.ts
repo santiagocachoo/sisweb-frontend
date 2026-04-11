@@ -35,6 +35,20 @@ export const createProduct = async (data: NewProductInput): Promise<Product> => 
   }
 };
 
+export const updateProduct = async (id: number, data: NewProductInput): Promise<Product> => {
+  try {
+    const res = await api.patch<ApiResponse<Product>>(`/product/${id}`, data);
+
+    return res.data.payload;
+  } catch (error) {
+    const err = error as AxiosError;
+
+    console.error("Error updating product:", err.message);
+
+    throw err;
+  }
+};
+
 export const deleteProduct = async(id: number): Promise<void> => {
   try {
     await api.delete(`/product/${id}`);
