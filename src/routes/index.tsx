@@ -4,6 +4,7 @@ import ProductPage from '../pages/ProductPage';
 import ErrorPage from '../pages/ErrorPage';
 import HomePage from '../pages/HomePage';
 import NewProductPage from '../pages/NewProductPage';
+import DashboardPage from '../pages/DashboardPage';
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: 'product', element: <ProductPage /> },
             { path: 'product/new', element: <NewProductPage /> },
+            { path: 'dashboard',         element: <DashboardPage />},
         ]
     },
     /*{
